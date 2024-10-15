@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Are You Feeling? - Gracie Abrams Song Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <h1>How Are You Feeling Today?</h1>
+    <div class="quiz-section">
+        <h2>Take the quiz and get a Gracie Abrams song suggestion!</h2>
+        <form id="moodQuiz">
+            <label for="mood">How are you feeling today?</label>
+            
+            <select id="mood" required>
+                <option value="">Select a mood</option>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="nostalgic">Nostalgic</option>
+                <option value="anxious">Anxious</option>
+                <option value="heartbroken">Heartbroken</option>
+                <option value="in love">In Love</option>
+                <option value="angry">Angry</option>
+                <option value="singAlong">Just Wanna Sing</option>
+                <option value="over it">Just Over It</option>
+            </select>
+
+            <button type="button" onclick="getSong()">Get Song</button>
+        </form>
+    </div>
+    <div class="song-result" id="songResult"></div>
+
+    <script>
+        function getSong() {
+            const mood = document.getElementById('mood').value;
+
+            // Songs related to each mood with Spotify links and codes
+            const songSuggestions = {
+                happy: [
+                    { title: "Feels Like", link: "https://open.spotify.com/track/35IcAVSMsU9qzHfpPbvC8A?si=49c2b9de1af24ee4"},
+                    { title: "Close To You", link: "https://open.spotify.com/track/5MPi9e7z46wopyad10R6qx?si=4de0275a637e430f"},
+                    { title: "Risk", link: "https://open.spotify.com/track/73c7iqH4lCVqu4tm66i0tY?si=d8a402a828c9421a"},
+                    { title: "Mess It Up", link: "https://open.spotify.com/track/0PLhwCmQ7cC3ThRGPn3HxF?si=d06da40732c24fc0"}
+                ],
+                sad: [
+                    { title: "Camden", link: "https://open.spotify.com/track/1NAWiOec7X7xTa24nXQFCG?si=a6fa5125076b4bee"},
+                    { title: "I miss you, I'm sorry", link: "https://open.spotify.com/track/4nyF5lmSziBAt7ESAUjpbx?si=7701ff6068c74e41"},
+                    { title: "Long Sleeves", link: "https://open.spotify.com/track/3wIRxCIGmdxld4ZC6yShZ9?si=51a9846bcb954d57"},
+                    { title: "Rockland", link: "https://open.spotify.com/track/5V03tsbEzYG0PmRrh3K4rF?si=860597faad8f4952"}
+                ],
+                nostalgic: [
+                    { title: "Minor", link: "https://open.spotify.com/track/1G9YZPtxUGfl1yVw7kq4yc?si=89abadef64804a00"},
+                    { title: "Friend", link: "https://open.spotify.com/track/10", code: "10" },
+                    { title: "I Love You, I'm Sorry", link: "https://open.spotify.com/track/11", code: "11" },
+                    { title: "us.", link: "https://open.spotify.com/track/12", code: "12" },
+                    { title: "Rockland", link: "https://open.spotify.com/track/5V03tsbEzYG0PmRrh3K4rF?si=860597faad8f4952" }
+                ],
+                anxious: [
+                    { title: "Block me out", link: "https://open.spotify.com/track/14", code: "14" },
+                    { title: "The Bottom", link: "https://open.spotify.com/track/15", code: "15" }
+                ],
+                heartbroken: [
+                    { title: "Blowing Smoke", link: "https://open.spotify.com/track/16", code: "16" },
+                    { title: "Normal Thing", link: "https://open.spotify.com/track/17", code: "17" },
+                    { title: "Rockland", link: "https://open.spotify.com/track/18", code: "18" },
+                    { title: "us.", link: "https://open.spotify.com/track/19", code: "19" },
+                    { title: "Felt Good About You", link: "https://open.spotify.com/track/20", code: "20" },
+                    { title: "Good Luck Charlie", link: "https://open.spotify.com/track/21", code: "21" }
+                ],
+                "in love": [
+                    { title: "For Real This Time", link: "https://open.spotify.com/track/22", code: "22" },
+                    { title: "Stay", link: "https://open.spotify.com/track/23", code: "23" },
+                    { title: "Risk", link: "https://open.spotify.com/track/73c7iqH4lCVqu4tm66i0tY?si=d8a402a828c9421a"},
+                    {title: "Close To You", link: "https://open.spotify.com/track/5MPi9e7z46wopyad10R6qx?si=4de0275a637e430f"}
+                ],
+                singAlong: [
+                    { title: "I Love You, I'm Sorry", link: "https://open.spotify.com/track/25", code: "25" },
+                    { title: "Close To You", link: "https://open.spotify.com/track/5MPi9e7z46wopyad10R6qx?si=4de0275a637e430f"},
+                    { title: "Risk", link: "https://open.spotify.com/track/73c7iqH4lCVqu4tm66i0tY?si=d8a402a828c9421a" },
+                    { title: "In Between", link: "https://open.spotify.com/track/28", code: "28" },
+                    { title: "Tough Love", link: "https://open.spotify.com/track/29", code: "29" },
+                    { title: "Mess It Up", link: "https://open.spotify.com/track/0PLhwCmQ7cC3ThRGPn3HxF?si=d06da40732c24fc0"}
+                ],
+                angry: [
+                    { title: "Blowing Smoke", link: "https://open.spotify.com/track/30", code: "30" },
+                    { title: "Tough Love", link: "https://open.spotify.com/track/31", code: "31" }
+                ],
+                "over it": [
+                    { title: "Free Now", link: "https://open.spotify.com/track/32", code: "32" },
+                    { title: "Tough Love", link: "https://open.spotify.com/track/33", code: "33" },
+                    { title: "Felt Good About You", link: "https://open.spotify.com/track/34", code: "34" },
+                    { title: "Normal Thing", link: "https://open.spotify.com/track/35", code: "35" }
+                ]
+            };
+
+            // Check if a mood was selected and generate a song
+            if (mood) {
+                const songs = songSuggestions[mood];
+                const randomSong = songs[Math.floor(Math.random() * songs.length)];
+                const songResultDiv = document.getElementById('songResult');
+                songResultDiv.innerHTML = `
+                    Gracie Abrams song for your mood: "${randomSong.title}"<br>
+                    <a class="spotify-link" href="${randomSong.link}" target="_blank">Listen on Spotify</a>
+                    
+                `;
+            } else {
+                document.getElementById('songResult').innerText = "Please select how you're feeling today!";
+            }
+        }
+    </script>
+</body>
+
+<br><br><hr><br>
+<footer>
+    <img src="https://static.vecteezy.com/system/resources/previews/023/986/939/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok Logo">
+    <a href="https://www.tiktok.com/@teheweenietehe" target="'blank">TikTok</a>
+</footer>
+
+</html>
